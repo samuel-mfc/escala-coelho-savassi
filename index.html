@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Risco Familiar — ERF-CS</title>
+<meta name="description" content="Calculadora da Escala de Risco Familiar de Coelho-Savassi (ERF-CS)">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f766e">
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icones/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="icones/icone-180.png">
+
+<!-- iOS: abre em tela cheia quando adicionado à Tela de Início -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Risco Familiar">
+</head>
+<body>
+
+<noscript>
+  <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+              max-width:640px; margin:24px auto; padding:16px 18px; border-radius:12px;
+              background:#fdf3e0; border:1px solid #e8c887; color:#9a5b00; line-height:1.5">
+    <b>Esta visualização não está executando JavaScript.</b><br>
+    O cálculo não vai funcionar aqui. Abra esta página em um navegador
+    (Safari, Chrome ou Firefox) ou adicione-a à Tela de Início.
+  </div>
+</noscript>
+
+<script src="erf-cs.js"></script>
+
+<script>
+/* Service worker: guarda o aplicativo no aparelho para funcionar sem internet.
+   Silencioso de propósito — se falhar, a página continua funcionando online. */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  });
+}
+</script>
+
+</body>
+</html>
