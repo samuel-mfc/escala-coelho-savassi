@@ -1,2 +1,2 @@
 # ERF-CS
-Calculadora Escala Coelho e Savassi
+Escala de Risco Familiar Coelho e Savassi
