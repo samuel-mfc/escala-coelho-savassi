@@ -118,7 +118,12 @@
   #erfcs-app .ratio{margin-top:10px; padding:11px 13px; border-radius:11px; background:var(--surface-2);
     border:1px solid var(--line); font-size:.85rem; display:flex; justify-content:space-between;
     gap:10px; align-items:center; flex-wrap:wrap}
-  #erfcs-app .ratio strong{font-size:.95rem}
+  #erfcs-app .ratio strong{font-size:.95rem; white-space:nowrap}
+  #erfcs-app .regras{display:flex; gap:6px; margin-top:10px}
+  #erfcs-app .regra{flex:1 1 0; border:1px solid var(--line); border-radius:10px; padding:8px 4px;
+    font-size:.78rem; color:var(--muted); text-align:center; white-space:nowrap}
+  #erfcs-app .regra b{font-weight:650; color:#3d4450}
+  #erfcs-app .regra i{font-style:normal; color:#9aa2ae; padding:0 2px}
 
   #erfcs-app details.def{margin-top:2px}
   #erfcs-app details.def summary{font-size:.76rem; color:var(--accent); cursor:pointer; list-style:none;
@@ -217,11 +222,9 @@
     if (!isFinite(v)) v = 0;
     return Math.max(0, Math.min(LIMITE, v));
   };
-  /* "2 moradores por cômodo" — sem mostrar a divisão */
-  var textoRazao = function (r) {
-    if (r === null) return "";
-    var n = Math.round(r * 100) / 100;
-    return String(n).replace(".", ",") + (n === 1 ? " morador por cômodo" : " moradores por cômodo");
+  /* "Relação moradores por cômodo maior que 1" — sem mostrar a divisão */
+  var textoRazao = function (faixa) {
+    return faixa === null ? "" : "Relação moradores por cômodo " + faixa;
   };
 
   /* ==========================================================================
@@ -284,8 +287,8 @@
     if (rel.peso > 0) {
       total += rel.peso;
       itens.push({
-        rotulo: "Relação morador/cômodo",
-        calc: textoRazao(rel.razao),
+        rotulo: "Relação moradores por cômodo",
+        calc: rel.faixa,
         pontos: rel.peso
       });
     }
@@ -354,7 +357,11 @@
               '</div>' +
             '</div>' +
             '<div class="ratio"><span id="erfcs-ratio-texto">Informe moradores e cômodos</span><strong id="erfcs-ratio-peso">0 ponto</strong></div>' +
-            '<p class="hint">Relação moradores/cômodos<br>&gt; 1: 3 pontos · = 1: 2 pontos · &lt; 1: 0 ponto.</p>' +
+            '<div class="regras">' +
+              '<div class="regra"><b>&gt; 1</b> <i>»</i> 3 pontos</div>' +
+              '<div class="regra"><b>= 1</b> <i>»</i> 2 pontos</div>' +
+              '<div class="regra"><b>&lt; 1</b> <i>»</i> 0 ponto</div>' +
+            '</div>' +
           '</div>' +
         '</section>' +
 
@@ -521,7 +528,7 @@
 
     $("erfcs-ratio-texto").textContent = d.relacao.razao === null
       ? "Informe moradores e cômodos"
-      : textoRazao(d.relacao.razao);
+      : textoRazao(d.relacao.faixa);
     $("erfcs-ratio-peso").textContent = plural(d.relacao.peso);
 
     /* obrigatoriedade do domicílio, marcada no próprio campo que falta */
@@ -577,7 +584,7 @@
     $("erfcs-rel-comodos").textContent = estado.comodos;
     $("erfcs-rel-relacao").textContent = d.relacao.razao === null
       ? "não informada"
-      : textoRazao(d.relacao.razao) + " — " + plural(d.relacao.peso);
+      : d.relacao.faixa + " — " + plural(d.relacao.peso);
 
     var alvo = $("erfcs-rel-itens");
     alvo.innerHTML = "";

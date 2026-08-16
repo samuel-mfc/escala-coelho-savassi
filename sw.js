@@ -9,7 +9,7 @@
  * troca, os aparelhos continuam abrindo a versão velha guardada.
  */
 
-var VERSAO = "erf-cs-v2";
+var VERSAO = "erf-cs-v3";
 
 var ARQUIVOS = [
   "./",
