@@ -10,6 +10,7 @@
  *   Savassi LCM, Lage JL, Coelho FLG. Sistematização de um instrumento de estratificação
  *   de risco familiar: Escala de Risco Familiar de Coelho-Savassi.
  *   J Manag Prim Health Care 2012;3(2):179-185.
+ *   Relação morador/cômodo conforme a errata da publicação (moradores ÷ cômodos).
  *
  * Sem dependências externas. Funciona offline. Não usa localStorage.
  */
@@ -401,7 +402,7 @@
         '<section class="card span-2">' +
           '<h2>Observações de aplicação</h2>' +
           '<div class="body"><div class="notas" style="padding-top:10px">' +
-            '<p><b>Faixa 0 a 4:</b> o Quadro 2 do artigo original define apenas R1 (5–6), R2 (7–8) e R3 (≥9). A faixa de 0 a 4 é apresentada aqui como <b>R0 — sem risco identificado</b>, por convenção de uso das equipes, e não consta na publicação original.</p>' +
+            '<p><b>Faixa 0 a 4:</b> o Quadro 2 do artigo original define apenas R1 (5–6), R2 (7–8) e R3 (≥9). A faixa de 0 a 4 é apresentada aqui como <b>R0 — sem risco identificado</b>, por convenção de uso das equipes, e não consta na publicação.</p>' +
             '<p><b>Caráter dinâmico:</b> a classificação muda com o tempo. As famílias devem ser reavaliadas periodicamente e o risco registrado no prontuário da família.</p>' +
             '<p><b>Sentinela hiperprevalente na área:</b> quando uma sentinela está presente em quase todo o território (ex.: saneamento precário), recomenda-se desconsiderá-la para fins de priorização, com a devida ressalva no relatório, e classificar a <b>área</b> como de risco para aquela sentinela.</p>' +
             '<p><b>Escores altos generalizados:</b> em áreas onde a maioria das famílias tem escore elevado (zona rural precária, aglomerados não urbanizados), recomenda-se elevar o ponto de corte local e considerar a microárea como de risco.</p>' +
@@ -410,7 +411,7 @@
         '</section>' +
 
       '</div>' +
-      '<div class="ref">Savassi LCM, Lage JL, Coelho FLG. Sistematização de um instrumento de estratificação de risco familiar: Escala de Risco Familiar de Coelho-Savassi. <i>J Manag Prim Health Care</i> 2012;3(2):179-185.<br></div>' +
+      '<div class="ref">Savassi LCM, Lage JL, Coelho FLG. Sistematização de um instrumento de estratificação de risco familiar: Escala de Risco Familiar de Coelho-Savassi. <i>J Manag Prim Health Care</i> 2012;3(2):179-185.</div>' +
     '</div>' +
 
     '<div class="totalbar"><div class="inner">' +
