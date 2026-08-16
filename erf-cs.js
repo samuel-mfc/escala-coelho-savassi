@@ -22,16 +22,16 @@
      ========================================================================== */
 
   var SENTINELAS = [
-    { id:"acamado", nome:"Acamado", peso:3, def:"Toda pessoa restrita ao seu próprio domicílio, por qualquer inabilidade e/ou incapacidade de locomover-se por si só a qualquer centro de atenção à saúde (OMS)." },
-    { id:"defFisica", nome:"Deficiência física", peso:3, def:"Defeito ou condição física de duração longa ou permanente que dificulta ou impede a realização de atividades cotidianas, escolares, de trabalho ou de lazer. Conta 3 pontos por pessoa — não se somam tipos diferentes de deficiência física na mesma pessoa." },
-    { id:"defMental", nome:"Deficiência mental", peso:3, def:"Mesma definição da Ficha A aplicada à condição mental. É sentinela distinta da deficiência física: uma pessoa com as duas condições pontua 3 + 3." },
-    { id:"desnutricao", nome:"Desnutrição grave", peso:3, def:"Percentil Peso/Idade menor que 0,1 (SISVAN), critério estabelecido para crianças menores de 7 anos: peso muito baixo para a idade." },
-    { id:"drogadicao", nome:"Drogadição", peso:2, def:"Utilização compulsiva de drogas lícitas e/ou ilícitas com potencial para causar dependência química. Inclui álcool, tabaco, benzodiazepínicos, barbitúricos e drogas ilícitas." },
-    { id:"desemprego", nome:"Desemprego", peso:2, def:"Qualquer situação que não se enquadre no critério de ocupação da Ficha A. Atenção: trabalho doméstico, ainda que não remunerado, caracteriza ocupação e não pontua. Férias, licença e afastamento temporário também não pontuam." },
-    { id:"analfabetismo", nome:"Analfabetismo", peso:1, def:"Não sabe ler e escrever no mínimo um bilhete. Quem apenas assina o nome não é considerado alfabetizado. Avaliado a partir da idade escolar." },
-    { id:"menor6m", nome:"Indivíduo menor de 6 meses", peso:1, def:"Todo lactente com idade até 5 meses e 29 dias." },
-    { id:"maior70", nome:"Indivíduo maior de 70 anos", peso:1, def:"Toda pessoa com 70 anos completos." },
-    { id:"has", nome:"Hipertensão arterial sistêmica", peso:1, def:"Pressão arterial sistólica ≥ 140 mmHg e/ou diastólica ≥ 90 mmHg em indivíduo sem uso de medicação anti-hipertensiva. Na rotina das equipes considera-se também o diagnóstico já estabelecido, em tratamento." },
+    { id:"acamado", nome:"Acamado ou Domiciliado", peso:3, def:"Toda pessoa restrita ao seu domicílio, por falta de habilidade e/ou incapacidade de locomoção por si só a qualquer unidade de saúde." },
+    { id:"defFisica", nome:"Deficiência física", peso:3, def:"Defeito ou condição física de longa duração ou permanente, que dificulta ou impede a realização de determinadas atividades cotidianas, escolares, de trabalho ou de lazer." },
+    { id:"defMental", nome:"Deficiência mental", peso:3, def:"Defeito ou condição mental de longa duração ou permanente, que dificulta ou impede a realização de determinadas atividades cotidianas, escolares, de trabalho ou de lazer." },
+    { id:"desnutricao", nome:"Desnutrição grave", peso:3, def:"Percentil menor que 0,1 ou peso muito baixo para a idade." },
+    { id:"drogadicao", nome:"Drogadição", peso:2, def:"Utilização compulsiva de drogas lícitas ou ilícitas, que apresentem potencial para causar dependência química (álcool, tabaco, benzodiazepínicos, barbitúricos e drogas ilícitas)." },
+    { id:"desemprego", nome:"Desemprego", peso:2, def:"Situação na qual a pessoa não esteja exercendo nenhuma ocupação (não incluir na avaliação férias, licenças ou afastamentos temporários). A realização de tarefas domésticas é considerada ocupação (trabalho doméstico), mesmo que não seja remunerado." },
+    { id:"analfabetismo", nome:"Analfabetismo", peso:1, def:"Pessoa que, a partir da idade escolar, não sabe ler nem escrever no mínimo um bilhete, e/ou que sabe apenas assinar o nome." },
+    { id:"menor6m", nome:"Indivíduo menor de 6 meses", peso:1, def:"Lactente com idade até 5 meses e 29 dias." },
+    { id:"maior70", nome:"Indivíduo maior de 70 anos", peso:1, def:"Toda pessoa com mais de 70 anos completos." },
+    { id:"has", nome:"Hipertensão arterial sistêmica", peso:1, def:"Pressão arterial sistólica maior ou igual a 140mmHg e pressão arterial diastólica maior ou igual a 90mmHg, em indivíduos que não usam medicação anti-hipertensiva." },
     { id:"dm", nome:"Diabetes mellitus", peso:1, def:"Grupo de doenças metabólicas caracterizadas por hiperglicemia e associadas a complicações, disfunções e insuficiência de vários órgãos." }
   ];
 
@@ -128,10 +128,11 @@
   #erfcs-app details.def[open] summary::after{transform:rotate(-90deg)}
   #erfcs-app details.def p{margin:5px 0 2px; font-size:.79rem; color:var(--muted); line-height:1.45}
 
-  #erfcs-app .warn{background:var(--warnbg); border:1px solid var(--warnline); color:var(--warn);
-    border-radius:11px; padding:11px 13px; font-size:.83rem; margin:0 0 14px}
-  #erfcs-app .warn:empty{display:none}
-  #erfcs-app .warn ul{margin:6px 0 0; padding-left:18px}
+  #erfcs-app .obrig{display:flex; align-items:center; gap:5px; margin-top:4px;
+    font-size:.76rem; font-weight:650; color:var(--warn)}
+  #erfcs-app .obrig[hidden]{display:none}
+  #erfcs-app .obrig i{font-style:normal; width:15px; height:15px; flex:0 0 auto; border-radius:50%;
+    background:var(--warn); color:#fff; font-size:.68rem; font-weight:700; line-height:15px; text-align:center}
 
   #erfcs-app #erfcs-memoria{list-style:none; margin:0; padding:0}
   #erfcs-app #erfcs-memoria li{display:flex; justify-content:space-between; gap:12px; padding:8px 0;
@@ -216,6 +217,12 @@
     if (!isFinite(v)) v = 0;
     return Math.max(0, Math.min(LIMITE, v));
   };
+  /* "2 moradores por cômodo" — sem mostrar a divisão */
+  var textoRazao = function (r) {
+    if (r === null) return "";
+    var n = Math.round(r * 100) / 100;
+    return String(n).replace(".", ",") + (n === 1 ? " morador por cômodo" : " moradores por cômodo");
+  };
 
   /* ==========================================================================
      4. Estado
@@ -257,7 +264,7 @@
         total += p;
         itens.push({
           rotulo: s.nome,
-          calc: s.peso + " × " + n + (n === 1 ? " pessoa" : " pessoas"),
+          calc: n + (n === 1 ? " pessoa" : " pessoas"),
           pontos: p
         });
       }
@@ -277,8 +284,8 @@
     if (rel.peso > 0) {
       total += rel.peso;
       itens.push({
-        rotulo: "Relação morador/cômodo " + rel.faixa,
-        calc: estado.moradores + " ÷ " + estado.comodos,
+        rotulo: "Relação morador/cômodo",
+        calc: textoRazao(rel.razao),
         pontos: rel.peso
       });
     }
@@ -295,8 +302,9 @@
       return '' +
         '<div class="row">' +
           '<div class="info">' +
-            '<div class="name">' + esc(s.nome) + ' <span class="peso">' + s.peso + ' pt' + (s.peso > 1 ? 's' : '') + ' por pessoa</span></div>' +
+            '<div class="name">' + esc(s.nome) + ' <span class="peso">' + s.peso + ' pt' + (s.peso > 1 ? 's' : '') + '</span></div>' +
             '<div class="subtotal" id="erfcs-sub-' + s.id + '" hidden></div>' +
+            '<div class="obrig" id="erfcs-exc-' + s.id + '" hidden><i>!</i>excede os moradores</div>' +
             '<details class="def"><summary>Definição</summary><p>' + esc(s.def) + '</p></details>' +
           '</div>' +
           '<div class="stepper">' +
@@ -318,15 +326,15 @@
     '</div>' +
 
     '<div class="wrap">' +
-      '<div id="erfcs-avisos" class="warn" role="alert" aria-live="polite"></div>' +
       '<div class="grid">' +
 
         '<section class="card">' +
-          '<h2>1. Domicílio <span class="tag">coletivo · conta uma vez</span></h2>' +
+          '<h2>1. Domicílio</h2>' +
           '<div class="body">' +
             '<div class="row">' +
               '<div class="info"><div class="name">Moradores</div>' +
-                '<div class="sub">Total de pessoas que moram no domicílio</div></div>' +
+                '<div class="sub">Total de pessoas que moram no domicílio</div>' +
+                '<div class="obrig" id="erfcs-obrig-moradores" hidden><i>!</i>obrigatório</div></div>' +
               '<div class="stepper">' +
                 '<button type="button" data-step="-1" data-target="moradores" aria-label="Diminuir moradores">−</button>' +
                 '<input type="number" inputmode="numeric" pattern="[0-9]*" id="erfcs-moradores" value="0" min="0" max="' + LIMITE + '" aria-label="Número de moradores">' +
@@ -336,6 +344,7 @@
             '<div class="row">' +
               '<div class="info"><div class="name">Cômodos</div>' +
                 '<div class="sub">Inclui sala, quartos, cozinha e banheiro</div>' +
+                '<div class="obrig" id="erfcs-obrig-comodos" hidden><i>!</i>obrigatório</div>' +
                 '<details class="def"><summary>O que conta como cômodo</summary><p>Todos os compartimentos integrantes do domicílio, inclusive banheiro e cozinha, separados por paredes, e os existentes na parte externa desde que integrem o domicílio. <b>Não contam</b> corredores, alpendres, varandas abertas, garagens, depósitos e outros compartimentos de uso não residencial. (Manual da Ficha A do SIAB)</p></details>' +
               '</div>' +
               '<div class="stepper">' +
@@ -345,20 +354,20 @@
               '</div>' +
             '</div>' +
             '<div class="ratio"><span id="erfcs-ratio-texto">Informe moradores e cômodos</span><strong id="erfcs-ratio-peso">0 ponto</strong></div>' +
-            '<p class="hint">Relação = moradores ÷ cômodos. Maior que 1 → 3 pontos · igual a 1 → 2 pontos · menor que 1 → 0 ponto.</p>' +
+            '<p class="hint">Relação moradores/cômodos<br>&gt; 1: 3 pontos · = 1: 2 pontos · &lt; 1: 0 ponto.</p>' +
           '</div>' +
         '</section>' +
 
         '<section class="card">' +
-          '<h2>2. Saneamento <span class="tag">coletivo · máximo 3 pontos</span></h2>' +
+          '<h2>2. Saneamento</h2>' +
           '<div class="body">' + linhasSaneamento +
             '<div class="ratio"><span>Baixas condições de saneamento</span><strong id="erfcs-san-peso">0 ponto</strong></div>' +
-            '<p class="hint">Basta <b>uma</b> das situações para pontuar 3. Marcar mais de uma não aumenta o escore.</p>' +
+            '<p class="hint">Basta <b>uma</b> das situações para pontuar 3.</p>' +
           '</div>' +
         '</section>' +
 
         '<section class="card span-2">' +
-          '<h2>3. Sentinelas individuais <span class="tag">peso × nº de pessoas</span></h2>' +
+          '<h2>3. Sentinelas individuais</h2>' +
           '<div class="body">' +
             '<p class="hint" style="margin:8px 0 2px">Informe <b>quantas pessoas</b> da família apresentam cada condição. A mesma pessoa pode ser contada em mais de uma sentinela.</p>' +
             '<div id="erfcs-lista">' + linhasSentinelas + '</div>' +
@@ -494,29 +503,30 @@
   function render() {
     var d = calcular();
 
-    /* subtotais e destaque nos contadores */
+    /* subtotais, destaque nos contadores e aviso de excesso */
     SENTINELAS.forEach(function (s) {
       var n = estado.cont[s.id], sub = $("erfcs-sub-" + s.id);
       if (n > 0) {
         sub.hidden = false;
-        sub.textContent = s.peso + " × " + n + " = " + plural(n * s.peso);
+        sub.textContent = plural(n * s.peso);
       } else {
         sub.hidden = true;
         sub.textContent = "";
       }
       campo(s.id).classList.toggle("on", n > 0);
+      $("erfcs-exc-" + s.id).hidden = !(estado.moradores > 0 && n > estado.moradores);
     });
 
     $("erfcs-san-peso").textContent = plural(d.saneamento);
 
-    if (d.relacao.razao === null) {
-      $("erfcs-ratio-texto").textContent = "Informe moradores e cômodos";
-    } else {
-      var r = Math.round(d.relacao.razao * 100) / 100;
-      $("erfcs-ratio-texto").textContent = estado.moradores + " ÷ " + estado.comodos + " = " +
-        String(r).replace(".", ",") + " morador(es) por cômodo — relação " + d.relacao.faixa;
-    }
+    $("erfcs-ratio-texto").textContent = d.relacao.razao === null
+      ? "Informe moradores e cômodos"
+      : textoRazao(d.relacao.razao);
     $("erfcs-ratio-peso").textContent = plural(d.relacao.peso);
+
+    /* obrigatoriedade do domicílio, marcada no próprio campo que falta */
+    $("erfcs-obrig-moradores").hidden = !(estado.moradores <= 0);
+    $("erfcs-obrig-comodos").hidden = !(estado.comodos <= 0);
 
     /* memória de cálculo */
     var ul = $("erfcs-memoria");
@@ -548,19 +558,6 @@
       faixas[i].classList.toggle("ativa", parseInt(faixas[i].getAttribute("data-f"), 10) === d.classe.idx);
     }
 
-    /* avisos */
-    var av = [];
-    var excede = SENTINELAS.filter(function (s) {
-      return estado.moradores > 0 && estado.cont[s.id] > estado.moradores;
-    }).map(function (s) { return s.nome; });
-    if (excede.length) {
-      av.push("O número de pessoas informado excede os " + estado.moradores + " moradores do domicílio em: " + excede.join(", ") + ".");
-    }
-    if ((d.itens.length > 0 || estado.moradores > 0 || estado.comodos > 0) && (estado.moradores <= 0 || estado.comodos <= 0)) {
-      av.push("Informe moradores e cômodos: a relação morador/cômodo é item obrigatório da escala e pode acrescentar 2 ou 3 pontos.");
-    }
-    $("erfcs-avisos").innerHTML = av.length ? "<b>Atenção</b><ul><li>" + av.map(esc).join("</li><li>") + "</li></ul>" : "";
-
     atualizarRelatorio(d);
 
     /* exposto para conferência e testes */
@@ -580,9 +577,7 @@
     $("erfcs-rel-comodos").textContent = estado.comodos;
     $("erfcs-rel-relacao").textContent = d.relacao.razao === null
       ? "não informada"
-      : estado.moradores + " ÷ " + estado.comodos + " = " +
-        String(Math.round(d.relacao.razao * 100) / 100).replace(".", ",") +
-        " (" + d.relacao.faixa + ") — " + plural(d.relacao.peso);
+      : textoRazao(d.relacao.razao) + " — " + plural(d.relacao.peso);
 
     var alvo = $("erfcs-rel-itens");
     alvo.innerHTML = "";
