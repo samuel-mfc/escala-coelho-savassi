@@ -1,5 +1,5 @@
 /*!
- * Escala de Risco Familiar de Coelho-Savassi (ERF-CS) — calculadora
+ * Escala de Vulnerabilidade Familiar de Coelho-Savassi (ERF-CS) — calculadora
  * Arquivo único e autossuficiente: injeta o CSS, monta toda a interface e liga o cálculo.
  *
  * Uso:
@@ -10,6 +10,8 @@
  *   Savassi LCM, Lage JL, Coelho FLG. Sistematização de um instrumento de estratificação
  *   de risco familiar: Escala de Risco Familiar de Coelho-Savassi.
  *   J Manag Prim Health Care 2012;3(2):179-185.
+ *   (a citação preserva o nome publicado do instrumento; a interface usa
+ *    "vulnerabilidade familiar" por decisão da equipe que aplica a escala)
  *   Relação morador/cômodo conforme a errata da publicação (moradores ÷ cômodos).
  *
  * Sem dependências externas. Funciona offline. Não usa localStorage.
@@ -250,10 +252,10 @@
 
   /* Quadro 2: 5–6 R1, 7–8 R2, ≥9 R3. A faixa 0–4 (R0) não consta na publicação. */
   function classificar(total) {
-    if (total >= 9) return { cls:"r3", idx:3, titulo:"R3 — risco máximo", sub:"9 pontos ou mais" };
-    if (total >= 7) return { cls:"r2", idx:2, titulo:"R2 — risco médio", sub:"7 a 8 pontos" };
-    if (total >= 5) return { cls:"r1", idx:1, titulo:"R1 — risco menor", sub:"5 a 6 pontos" };
-    return { cls:"r0", idx:0, titulo:"R0 — sem risco identificado", sub:"0 a 4 pontos — faixa não descrita no artigo" };
+    if (total >= 9) return { cls:"r3", idx:3, titulo:"R3 — vulnerabilidade máxima", sub:"9 pontos ou mais" };
+    if (total >= 7) return { cls:"r2", idx:2, titulo:"R2 — vulnerabilidade média", sub:"7 a 8 pontos" };
+    if (total >= 5) return { cls:"r1", idx:1, titulo:"R1 — vulnerabilidade menor", sub:"5 a 6 pontos" };
+    return { cls:"r0", idx:0, titulo:"R0 — vulnerabilidade habitual", sub:"0 a 4 pontos — faixa não descrita no artigo" };
   }
 
   /* Núcleo do cálculo, isolado da interface — é o que os testes conferem. */
@@ -324,8 +326,8 @@
 
     return '' +
     '<div class="top">' +
-      '<h1>Escala de Risco Familiar de Coelho-Savassi</h1>' +
-      '<p>Estratificação de risco familiar · ERF-CS</p>' +
+      '<h1>Escala de Vulnerabilidade Familiar de Coelho-Savassi</h1>' +
+      '<p>Estratificação de vulnerabilidade familiar · ERF-CS</p>' +
     '</div>' +
 
     '<div class="wrap">' +
@@ -386,10 +388,10 @@
           '<div class="body">' +
             '<ul id="erfcs-memoria"></ul>' +
             '<div class="faixas">' +
-              '<div class="faixa f0" data-f="0"><b>0 a 4</b>R0 · sem risco identificado</div>' +
-              '<div class="faixa f1" data-f="1"><b>5 a 6</b>R1 · risco menor</div>' +
-              '<div class="faixa f2" data-f="2"><b>7 a 8</b>R2 · risco médio</div>' +
-              '<div class="faixa f3" data-f="3"><b>9 ou mais</b>R3 · risco máximo</div>' +
+              '<div class="faixa f0" data-f="0"><b>0 a 4</b>R0 · vulnerabilidade habitual</div>' +
+              '<div class="faixa f1" data-f="1"><b>5 a 6</b>R1 · vulnerabilidade menor</div>' +
+              '<div class="faixa f2" data-f="2"><b>7 a 8</b>R2 · vulnerabilidade média</div>' +
+              '<div class="faixa f3" data-f="3"><b>9 ou mais</b>R3 · vulnerabilidade máxima</div>' +
             '</div>' +
             '<div class="actions" style="margin-top:14px">' +
               '<button class="btn primary" type="button" id="erfcs-imprimir">Imprimir / salvar PDF</button>' +
@@ -402,7 +404,7 @@
         '<section class="card span-2">' +
           '<h2>Observações de aplicação</h2>' +
           '<div class="body"><div class="notas" style="padding-top:10px">' +
-            '<p><b>Faixa 0 a 4:</b> o Quadro 2 do artigo original define apenas R1 (5–6), R2 (7–8) e R3 (≥9). A faixa de 0 a 4 é apresentada aqui como <b>R0 — sem risco identificado</b>, por convenção de uso das equipes, e não consta na publicação.</p>' +
+            '<p><b>Faixa 0 a 4:</b> o Quadro 2 do artigo original define apenas R1 (5–6), R2 (7–8) e R3 (≥9). A faixa de 0 a 4 é apresentada aqui como <b>R0 — vulnerabilidade habitual</b>, por convenção de uso das equipes, e não consta na publicação.</p>' +
             '<p><b>Caráter dinâmico:</b> a classificação muda com o tempo. As famílias devem ser reavaliadas periodicamente e o risco registrado no prontuário da família.</p>' +
             '<p><b>Sentinela hiperprevalente na área:</b> quando uma sentinela está presente em quase todo o território (ex.: saneamento precário), recomenda-se desconsiderá-la para fins de priorização, com a devida ressalva no relatório, e classificar a <b>área</b> como de risco para aquela sentinela.</p>' +
             '<p><b>Escores altos generalizados:</b> em áreas onde a maioria das famílias tem escore elevado (zona rural precária, aglomerados não urbanizados), recomenda-se elevar o ponto de corte local e considerar a microárea como de risco.</p>' +
@@ -416,7 +418,7 @@
 
     '<div class="totalbar"><div class="inner">' +
       '<div class="score"><span class="n" id="erfcs-total">0</span><span class="lbl">pontos</span></div>' +
-      '<div class="badge" id="erfcs-badge" role="status" aria-live="polite">R0 — sem risco identificado<small id="erfcs-badge-sub">Escore abaixo do ponto de corte</small></div>' +
+      '<div class="badge" id="erfcs-badge" role="status" aria-live="polite">R0 — vulnerabilidade habitual<small id="erfcs-badge-sub">Escore abaixo do ponto de corte</small></div>' +
     '</div></div>' +
 
     '<div class="toast" id="erfcs-toast"></div>';
@@ -424,8 +426,8 @@
 
   function markupRelatorio() {
     return '' +
-      '<h1>Escala de Risco Familiar de Coelho-Savassi</h1>' +
-      '<p class="sub">Estratificação de risco familiar · ERF-CS &nbsp;|&nbsp; Data: <span id="erfcs-rel-data"></span></p>' +
+      '<h1>Escala de Vulnerabilidade Familiar de Coelho-Savassi</h1>' +
+      '<p class="sub">Estratificação de vulnerabilidade familiar · ERF-CS &nbsp;|&nbsp; Data: <span id="erfcs-rel-data"></span></p>' +
       '<h2>Domicílio</h2>' +
       '<div class="linha"><span>Moradores</span><b id="erfcs-rel-moradores"></b></div>' +
       '<div class="linha"><span>Cômodos</span><b id="erfcs-rel-comodos"></b></div>' +
@@ -608,7 +610,7 @@
 
   function resumoTexto() {
     var d = calcular(), l = [];
-    l.push("Escala de Risco Familiar de Coelho-Savassi");
+    l.push("Escala de Vulnerabilidade Familiar de Coelho-Savassi");
     l.push("Data: " + new Date().toLocaleDateString("pt-BR"));
     l.push("Moradores: " + estado.moradores + " | Cômodos: " + estado.comodos);
     l.push("");
@@ -690,7 +692,7 @@
       mc.setAttribute("charset", "utf-8");
       document.head.insertBefore(mc, document.head.firstChild);
     }
-    if (!document.title) document.title = "Escala de Risco Familiar de Coelho-Savassi";
+    if (!document.title) document.title = "Escala de Vulnerabilidade Familiar de Coelho-Savassi";
 
     var estilo = document.createElement("style");
     estilo.id = "erfcs-css";
