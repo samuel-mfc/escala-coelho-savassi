@@ -1,6 +1,6 @@
 # Calculadora ERF-CS — pasta pronta para publicar
 
-Escala de Risco Familiar de Coelho-Savassi, para uso em visita domiciliar.
+Escala de Vulnerabilidade Familiar de Coelho-Savassi (ERF-CS), para uso em visita domiciliar.
 Publique esta pasta uma vez e o aplicativo passa a abrir por um ícone na tela
 inicial do iPhone, do iPad e de qualquer Android — **funcionando sem internet**.
 
@@ -81,7 +81,7 @@ Quando a calculadora mudar:
 
 1. no repositório, **Add file → Upload files** e suba os arquivos alterados
    (subir com o mesmo nome substitui o anterior);
-2. **abra `sw.js` e mude a versão** — de `"erf-cs-v1"` para `"erf-cs-v2"`, e assim por diante.
+2. **abra `sw.js` e mude a versão** — de `"erf-cs-v5"` para `"erf-cs-v6"`, e assim por diante.
 
 O segundo passo não é opcional. É a troca do número que faz os aparelhos
 perceberem que existe versão nova; sem ela, cada telefone continua abrindo a

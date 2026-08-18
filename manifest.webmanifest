@@ -1,7 +1,7 @@
 {
-  "name": "Escala de Risco Familiar de Coelho-Savassi",
-  "short_name": "Risco Familiar",
-  "description": "Calculadora da Escala de Risco Familiar de Coelho-Savassi (ERF-CS) para uso em visita domiciliar.",
+  "name": "Escala de Vulnerabilidade Familiar de Coelho-Savassi",
+  "short_name": "Vulnerabilidade",
+  "description": "Calculadora da Escala de Vulnerabilidade Familiar de Coelho-Savassi (ERF-CS) para uso em visita domiciliar.",
   "lang": "pt-BR",
   "dir": "ltr",
   "start_url": "./index.html",
